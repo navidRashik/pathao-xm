@@ -33,6 +33,8 @@ users_table = sqlalchemy.Table(
     sqlalchemy.Column("first_name", sqlalchemy.String),
     sqlalchemy.Column("last_name", sqlalchemy.String),
     sqlalchemy.Column("hash_password", sqlalchemy.String),
+    sqlalchemy.Column("tags", sqlalchemy.ARRAY),
+    sqlalchemy.Column("tags_expire_at", sqlalchemy.DateTime, nullable=True)
 )
 
 
@@ -40,8 +42,6 @@ engine = sqlalchemy.create_engine(
     DATABASE_URL, connect_args={"check_same_thread": False}
 )
 metadata.create_all(engine)
-
-
 
 
 app = FastAPI()
