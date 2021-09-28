@@ -93,3 +93,4 @@ env/
 .docker/
 
 migrations
+test.db
