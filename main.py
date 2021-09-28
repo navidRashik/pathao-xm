@@ -10,9 +10,10 @@ from common.dependencies import get_query_token, get_token_header
 import importlib.util
 import logging
 
-app = FastAPI(dependencies=[Depends(get_query_token)])
+app = FastAPI()
 
-@app.get("/")
+
+@app.get("/health")
 async def root():
     return {"message": "Health is Ok"}
 
@@ -21,7 +22,6 @@ async def root():
 async def handle_startup():
     router_list = list()
     for file_name in glob.iglob('./**/routers.py', recursive=True):
-        print('-----------------loop')
         print(file_name)
         spec = importlib.util.spec_from_file_location('routers', file_name)
         each_app = importlib.util.module_from_spec(spec)
