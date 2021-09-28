@@ -5,4 +5,24 @@ developer to establish dynamic route search.
 for running this project simply run
 ```
 uvicorn main:app --reload
+
+```
+or 
+```
+docker-compose up
+```
+
+docs - swagger
+```
+127.0.0.1:8000/docs#
+
+```
+docs redoc
+```
+http://127.0.0.1:8000/redoc
+```
+
+openapi collection
+```
+http://127.0.0.1:8000/openapi.json
 ```

@@ -20,9 +20,9 @@ from fastapi import FastAPI
 from sqlalchemy.dialects.postgresql import ARRAY
 # SQLAlchemy specific code, as with any other app
 # DATABASE_URL = "sqlite:///./test.db"
-# DATABASE_URL = "postgresql://user:password@db:5432/db"
+DATABASE_URL = "postgresql://user:password@db:5432/db"
 
-DATABASE_URL = "postgresql://user:password@localhost:5432/db"
+# DATABASE_URL = "postgresql://user:password@localhost:5432/db"
 secret_key = "A-big-secret-key"
 secret_algorithm = "HS256"
 database = databases.Database(DATABASE_URL)
