@@ -1,4 +1,5 @@
 # this should be a folder
+from datetime import datetime, timedelta
 from apps.user.validators import UserIn
 from fastapi import HTTPException
 from main import users_table
@@ -27,3 +28,15 @@ async def get_user(id: int):
         'id': data[0],
         'name': f"{first_name} {last_name}"
     }
+
+
+async def post_tags(id: int, tags: list, expiry: int):
+    q = users_table.select().where(users_table.c.id == id)
+    data = await database.fetch_one(q)
+    time_stamp = data[5] if data[5] else datetime.now()
+    time_stamp += timedelta(milliseconds=expiry)
+
+    query = users_table.update().where(users_table.c.id == id).values(
+        tags=tags, tags_expire_at=time_stamp)
+    await database.execute(query)
+    return {}
