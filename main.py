@@ -1,4 +1,4 @@
-from sqlalchemy.sql.sqltypes import String
+from sqlalchemy.sql.sqltypes import Integer, String
 from common.dependencies import get_token_header
 from fastapi import APIRouter, Depends
 from fastapi import APIRouter
@@ -17,12 +17,12 @@ from typing import List
 import databases
 import sqlalchemy
 from fastapi import FastAPI
-
+from sqlalchemy.dialects.postgresql import ARRAY
 # SQLAlchemy specific code, as with any other app
 # DATABASE_URL = "sqlite:///./test.db"
-DATABASE_URL = "postgresql://user:password@db:5432/db"
+# DATABASE_URL = "postgresql://user:password@db:5432/db"
 
-# DATABASE_URL = "postgresql://user:password@localhost:5432/db"
+DATABASE_URL = "postgresql://user:password@localhost:5432/db"
 secret_key = "A-big-secret-key"
 secret_algorithm = "HS256"
 database = databases.Database(DATABASE_URL)
@@ -36,7 +36,7 @@ users_table = sqlalchemy.Table(
     sqlalchemy.Column("first_name", sqlalchemy.String),
     sqlalchemy.Column("last_name", sqlalchemy.String),
     sqlalchemy.Column("hash_password", sqlalchemy.String),
-    sqlalchemy.Column("tags", sqlalchemy.ARRAY(String)),
+    sqlalchemy.Column("tags", ARRAY(String)),
     sqlalchemy.Column("tags_expire_at", sqlalchemy.DateTime, nullable=True)
 )
 
