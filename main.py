@@ -20,7 +20,8 @@ from fastapi import FastAPI
 # SQLAlchemy specific code, as with any other app
 DATABASE_URL = "sqlite:///./test.db"
 # DATABASE_URL = "postgresql://user:password@postgresserver/db"
-
+secret_key = "A-big-secret-key"
+secret_algorithm = "HS256"
 database = databases.Database(DATABASE_URL)
 
 metadata = sqlalchemy.MetaData()
@@ -30,7 +31,7 @@ users_table = sqlalchemy.Table(
     metadata,
     sqlalchemy.Column("id", sqlalchemy.Integer, primary_key=True),
     sqlalchemy.Column("first_name", sqlalchemy.String),
-    sqlalchemy.Column("last_name", sqlalchemy.Boolean),
+    sqlalchemy.Column("last_name", sqlalchemy.String),
     sqlalchemy.Column("hash_password", sqlalchemy.String),
 )
 
