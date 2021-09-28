@@ -4,5 +4,5 @@ developer to establish dynamic route search.
 
 for running this project simply run
 ```
-uvicorn chat_backend:app --reload
+uvicorn main:app --reload
 ```
