@@ -21,11 +21,13 @@ async def post_user(user: UserIn):
 async def get_user(id: int):
     query = users_table.select().where(users_table.c.id == id)
     data = await database.fetch_one(query)
-
-    # values(
-    #     first_name=user.first_name, last_name=user.last_name, hash_password=hash_password)
+    if not data:
+        raise HTTPException(
+            status_code=404, detail="Not Found"
+        )
     first_name = data[1]
     last_name = data[2]
+
     return {
         'id': data[0],
         'name': f"{first_name} {last_name}"
@@ -49,5 +51,19 @@ async def filter_by_tags(tags: Optional[List[str]] = Query(None)):
         users_table.c.tags.overlap(tags), users_table.c.tags_expire_at > datetime.now())
 
     data = await database.fetch_all(q)
+    users = list()
 
-    return {"users": data}
+    if not data:
+        raise HTTPException(
+            status_code=404, detail="Not Found"
+        )
+    for usr in data:
+        first_name = usr[1]
+        last_name = usr[2]
+
+        users.append({
+            'id': usr[0],
+            'name': f"{first_name} {last_name}",
+            'tags': usr.get('tags'),
+        })
+    return {"users": users}
