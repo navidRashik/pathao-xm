@@ -94,3 +94,4 @@ env/
 
 migrations
 test.db
+.venv
